@@ -14,8 +14,7 @@ typedef EmbedsBuilder = EmbedBuilder Function(Embed node);
 
 typedef CustomStyleBuilder = TextStyle Function(Attribute attribute);
 
-typedef CustomRecognizerBuilder = GestureRecognizer? Function(
-    Attribute attribute);
+typedef CustomRecognizerBuilder = GestureRecognizer? Function(Attribute attribute);
 
 /// Delegate interface for the [EditorTextSelectionGestureDetectorBuilder].
 ///
@@ -67,8 +66,7 @@ class EditorTextSelectionGestureDetectorBuilder {
   /// Creates a [EditorTextSelectionGestureDetectorBuilder].
   ///
   /// The [delegate] must not be null.
-  EditorTextSelectionGestureDetectorBuilder(
-      {required this.delegate, this.detectWordBoundary = true});
+  EditorTextSelectionGestureDetectorBuilder({required this.delegate, this.detectWordBoundary = true});
 
   /// The delegate for this [EditorTextSelectionGestureDetectorBuilder].
   ///
@@ -116,9 +114,7 @@ class EditorTextSelectionGestureDetectorBuilder {
     // For backwards-compatibility, we treat a null kind the same as touch.
     final kind = details.kind;
     shouldShowSelectionToolbar = kind == null ||
-        kind ==
-            PointerDeviceKind
-                .mouse || // Enable word selection by mouse double tap
+        kind == PointerDeviceKind.mouse || // Enable word selection by mouse double tap
         kind == PointerDeviceKind.touch ||
         kind == PointerDeviceKind.stylus;
   }
@@ -311,10 +307,8 @@ class EditorTextSelectionGestureDetectorBuilder {
   ///  * [EditorTextSelectionGestureDetector.onDragSelectionUpdate],
   ///  which triggers this callback./lib/src/material/text_field.dart
   @protected
-  void onDragSelectionUpdate(
-      DragStartDetails startDetails, DragUpdateDetails updateDetails) {
-    renderEditor!.extendSelection(updateDetails.globalPosition,
-        cause: SelectionChangedCause.drag);
+  void onDragSelectionUpdate(DragUpdateDetails updateDetails) {
+    renderEditor!.extendSelection(updateDetails.globalPosition, cause: SelectionChangedCause.drag);
   }
 
   /// Handler for [EditorTextSelectionGestureDetector.onDragSelectionEnd].
@@ -328,9 +322,7 @@ class EditorTextSelectionGestureDetectorBuilder {
   @protected
   void onDragSelectionEnd(DragEndDetails details) {
     renderEditor!.handleDragEnd(details);
-    if (isDesktop() &&
-        delegate.selectionEnabled &&
-        shouldShowSelectionToolbar) {
+    if (isDesktop() && delegate.selectionEnabled && shouldShowSelectionToolbar) {
       // added to show selection copy/paste toolbar after drag to select
       editor!.showToolbar();
     }
@@ -340,16 +332,11 @@ class EditorTextSelectionGestureDetectorBuilder {
   /// the handlers provided by this builder.
   ///
   /// The [child] or its subtree should contain [EditableText].
-  Widget build(
-      {required HitTestBehavior behavior,
-      required Widget child,
-      Key? key,
-      bool detectWordBoundary = true}) {
+  Widget build({required HitTestBehavior behavior, required Widget child, Key? key, bool detectWordBoundary = true}) {
     return EditorTextSelectionGestureDetector(
         key: key,
         onTapDown: onTapDown,
-        onForcePressStart:
-            delegate.forcePressEnabled ? onForcePressStart : null,
+        onForcePressStart: delegate.forcePressEnabled ? onForcePressStart : null,
         onForcePressEnd: delegate.forcePressEnabled ? onForcePressEnd : null,
         onSingleTapUp: onSingleTapUp,
         onSingleTapCancel: onSingleTapCancel,
